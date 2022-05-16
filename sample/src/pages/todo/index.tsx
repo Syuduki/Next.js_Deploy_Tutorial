@@ -25,6 +25,10 @@ const TodoPage: NextPage = () => {
   const [open, setOpen] = React.useState<boolean>(false);
 
   React.useEffect(() => {
+    onClickSearch();
+  }, []);
+
+  const onClickSearch = () => {
     axios
       .get('api/todo/list')
       .then((response) => {
@@ -33,64 +37,45 @@ const TodoPage: NextPage = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
-  const onClickSearch = () => {
-    axios
-      .post('http://127.0.0.1:8000/todo/detail/', {
-        searchword: searchword,
-        withCredentials: true,
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   const onClickRow = (id: number) => {
     axios
-      .get(`http://127.0.0.1:8000/todo/detail/?id=${id}`, {
-        withCredentials: true,
-      })
+      .get(`api/todo/detail/data?id=${id}`)
       .then((response) => {
-        console.log(response);
+        setTodo(response.data);
+        setOpen(true);
       })
       .catch((error) => {
         console.log(error);
       });
-    setOpen(true);
   };
 
   const onClickButton = (type: string) => {
     switch (type) {
       case 'save':
         axios
-          .put('http://127.0.0.1:8000/todo/detail/', {
+          .put('api/todo/detail/update', {
             todo: todo,
-            withCredentials: true,
           })
           .then((response) => {
-            console.log(response);
+            setOpen(false);
+            onClickSearch();
           })
           .catch((error) => {
             console.log(error);
           });
-        setOpen(false);
         break;
       case 'delete':
         axios
-          .delete(`http://127.0.0.1:8000/todo/detail/?id=${todo.id}`, {
-            withCredentials: true,
-          })
+          .delete(`api/todo/detail/delete?id=${todo.id}`)
           .then((response) => {
-            console.log(response);
+            setOpen(false);
+            onClickSearch();
           })
           .catch((error) => {
             console.log(error);
           });
-        setOpen(false);
         break;
     }
   };
