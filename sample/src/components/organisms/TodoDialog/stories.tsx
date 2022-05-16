@@ -16,7 +16,7 @@ const TMP_INPUT_FROM: React.FC = () => {
     id: 0,
     title: 'reactプロジェクト　作成',
     contents: '今日中に作成する',
-    deadLine: '2020/05/15',
+    deadline: '2020/05/15',
     complete: false,
   });
 
