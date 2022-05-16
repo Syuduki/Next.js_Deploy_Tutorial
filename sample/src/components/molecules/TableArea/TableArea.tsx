@@ -31,7 +31,7 @@ export const TableArea: React.FC<types.Props> = ({ ...props }) => {
             >
               <TableCell component="th">{todo.id}</TableCell>
               <TableCell component="th">{todo.title}</TableCell>
-              <TableCell component="th">{todo.deadLine}</TableCell>
+              <TableCell component="th">{todo.deadline}</TableCell>
               <TableCell component="th">{todo.complete}</TableCell>
             </TableRow>
           ))}
