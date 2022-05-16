@@ -34,9 +34,9 @@ export const InputForm: React.FC<types.Props> = ({ ...props }) => {
         id="deadLine"
         label="日付"
         variant="standard"
-        value={props.todo.deadLine}
+        value={props.todo.deadline}
         onChange={(e) =>
-          props.setTodo({ ...props.todo, deadLine: e.target.value })
+          props.setTodo({ ...props.todo, deadline: e.target.value })
         }
       />
       <FormControlLabel

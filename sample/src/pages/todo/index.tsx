@@ -16,7 +16,7 @@ const TodoPage: NextPage = () => {
     id: 0,
     title: '',
     contents: '',
-    deadLine: '',
+    deadline: '',
     complete: false,
   });
 
@@ -26,9 +26,9 @@ const TodoPage: NextPage = () => {
 
   React.useEffect(() => {
     axios
-      .get('http://localhost:8000/api/todo/')
+      .get('api/todo/list')
       .then((response) => {
-        console.log(response);
+        setTodoList(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -37,8 +37,9 @@ const TodoPage: NextPage = () => {
 
   const onClickSearch = () => {
     axios
-      .post('http://localhost:8000/api/todo/detail/', {
+      .post('http://127.0.0.1:8000/todo/detail/', {
         searchword: searchword,
+        withCredentials: true,
       })
       .then((response) => {
         console.log(response);
@@ -50,7 +51,9 @@ const TodoPage: NextPage = () => {
 
   const onClickRow = (id: number) => {
     axios
-      .get(`http://localhost:8000/api/todo/detail/?id=${id}`)
+      .get(`http://127.0.0.1:8000/todo/detail/?id=${id}`, {
+        withCredentials: true,
+      })
       .then((response) => {
         console.log(response);
       })
@@ -64,7 +67,10 @@ const TodoPage: NextPage = () => {
     switch (type) {
       case 'save':
         axios
-          .put('http://localhost:8000/api/todo/detail/', { todo: todo })
+          .put('http://127.0.0.1:8000/todo/detail/', {
+            todo: todo,
+            withCredentials: true,
+          })
           .then((response) => {
             console.log(response);
           })
@@ -75,7 +81,9 @@ const TodoPage: NextPage = () => {
         break;
       case 'delete':
         axios
-          .delete(`http://localhost:8000/api/todo/detail/?id=${todo.id}`)
+          .delete(`http://127.0.0.1:8000/todo/detail/?id=${todo.id}`, {
+            withCredentials: true,
+          })
           .then((response) => {
             console.log(response);
           })
